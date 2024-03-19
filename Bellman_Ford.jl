@@ -60,10 +60,12 @@ function bellman_ford_Deque(graph::AbstractGraph, weights::Dict{Tuple{Int64, Int
             if distances[neighbor] > distances[node] + weight
                 distances[neighbor] = distances[node] + weight
                 label_count += 1
-                if !(neighbor in LIST) && pred[neighbor] != 0
-                    pushfirst!(LIST, neighbor)
-                else
-                    push!(LIST, neighbor)
+                if !(neighbor in LIST)
+                    if pred[neighbor] != 0
+                        pushfirst!(LIST, neighbor)
+                    else
+                        push!(LIST, neighbor)
+                    end
                 end
                 pred[neighbor] = node
             end
